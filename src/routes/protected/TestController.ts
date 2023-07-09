@@ -53,7 +53,7 @@ export class TestController extends ControllerModel<ITest, ITestCreate, ITestUpd
     @Request() req: IAuthorizedRequest,
     @Path() testId: number
   ): Promise<ITest | undefined> {
-    return super.getItem(req, testId);
+    return super.getItem(req, testId,READ_COLUMNS[0]);
 
   }
 
@@ -66,7 +66,7 @@ export class TestController extends ControllerModel<ITest, ITestCreate, ITestUpd
     @Path() testId: number,
     @Body() body: ITestUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, testId, body);
+    return super.updateItem(req, testId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -77,7 +77,7 @@ export class TestController extends ControllerModel<ITest, ITestCreate, ITestUpd
     @Request() req: IAuthorizedRequest,
     @Path() testId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, testId);
+    return super.deleteItem(req, testId,READ_COLUMNS[0]);
   }
 
 }

@@ -53,7 +53,7 @@ export class TestPromoController extends ControllerModel<ITestPromo, ITestPromoC
     @Request() req: IAuthorizedRequest,
     @Path() testPromoId: number
   ): Promise<ITestPromo | undefined> {
-    return super.getItem(req, testPromoId);
+    return super.getItem(req, testPromoId,READ_COLUMNS[0]);
   }
 
   /**
@@ -65,7 +65,7 @@ export class TestPromoController extends ControllerModel<ITestPromo, ITestPromoC
     @Path() testPromoId: number,
     @Body() body: ITestPromoUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, testPromoId, body);
+    return super.updateItem(req, testPromoId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -76,6 +76,6 @@ export class TestPromoController extends ControllerModel<ITestPromo, ITestPromoC
     @Request() req: IAuthorizedRequest,
     @Path() testPromoId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, testPromoId);
+    return super.deleteItem(req, testPromoId,READ_COLUMNS[0]);
   }
 }

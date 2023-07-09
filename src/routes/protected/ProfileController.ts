@@ -54,7 +54,7 @@ export class ProfileController extends ControllerModel<IProfile, IProfileCreate,
     @Request() req: IAuthorizedRequest,
     @Path() profileId: number
   ): Promise<IProfile | undefined> {
-    return super.getItem(req, profileId);
+    return super.getItem(req, profileId,READ_COLUMNS[0]);
 
   }
 
@@ -67,7 +67,7 @@ export class ProfileController extends ControllerModel<IProfile, IProfileCreate,
     @Path() profileId: number,
     @Body() body: IProfileUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, profileId, body);
+    return super.updateItem(req, profileId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -78,7 +78,7 @@ export class ProfileController extends ControllerModel<IProfile, IProfileCreate,
     @Request() req: IAuthorizedRequest,
     @Path() profileId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, profileId);
+    return super.deleteItem(req, profileId, READ_COLUMNS[0]);
   }
 
 }

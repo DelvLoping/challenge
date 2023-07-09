@@ -52,7 +52,7 @@ export class ReponseController extends ControllerModel<IReponse, IReponseCreate,
     @Request() req: IAuthorizedRequest,
     @Path() reponseId: number
   ): Promise<IReponse | undefined> {
-    return super.getItem(req, reponseId);
+    return super.getItem(req, reponseId,READ_COLUMNS[0]);
 
   }
 
@@ -65,7 +65,7 @@ export class ReponseController extends ControllerModel<IReponse, IReponseCreate,
     @Path() reponseId: number,
     @Body() body: IReponseUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, reponseId, body);
+    return super.updateItem(req, reponseId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -76,7 +76,7 @@ export class ReponseController extends ControllerModel<IReponse, IReponseCreate,
     @Request() req: IAuthorizedRequest,
     @Path() reponseId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, reponseId);
+    return super.deleteItem(req, reponseId,READ_COLUMNS[0]);
   }
 
 }

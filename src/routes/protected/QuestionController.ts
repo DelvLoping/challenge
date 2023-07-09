@@ -52,7 +52,7 @@ export class QuestionController extends ControllerModel<IQuestion, IQuestionCrea
     @Request() req: IAuthorizedRequest,
     @Path() questionId: number
   ): Promise<IQuestion | undefined> {
-    return super.getItem(req, questionId);
+    return super.getItem(req, questionId,READ_COLUMNS[0]);
 
   }
 
@@ -65,7 +65,7 @@ export class QuestionController extends ControllerModel<IQuestion, IQuestionCrea
     @Path() questionId: number,
     @Body() body: IQuestionUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, questionId, body);
+    return super.updateItem(req, questionId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -76,7 +76,7 @@ export class QuestionController extends ControllerModel<IQuestion, IQuestionCrea
     @Request() req: IAuthorizedRequest,
     @Path() questionId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, questionId);
+    return super.deleteItem(req, questionId,READ_COLUMNS[0]);
   }
 
 }

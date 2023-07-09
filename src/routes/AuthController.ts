@@ -49,7 +49,7 @@ export class AuthController {
       }
     }
 
-   
+    console.log("create : ",MAGIC_AUD)
     // Create the new JWT
     const jwt = new JWT();
     const encoded = await jwt.create({
@@ -84,7 +84,7 @@ export class AuthController {
     if (!jwt) {
       throw new ApiError(ErrorCode.BadRequest, 'auth/missing-magic-link-token', "Token is missing in login request.");
     }
-
+    console.log("login : ",MAGIC_AUD)
     const helper = new JWT();
     const decoded = await helper.decode(jwt, {
       issuer: ISSUER,

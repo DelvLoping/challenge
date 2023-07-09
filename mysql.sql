@@ -28,7 +28,7 @@ create table if not exists user (
   email varchar(256) unique not null, 
   familyName varchar(256), 
   givenName varchar(256),
-  profileId int,
+  profileId int default 1,
   primary key(userId),
   foreign key(profileId) references profile(profileId)
 );

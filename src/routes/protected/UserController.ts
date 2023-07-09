@@ -52,7 +52,7 @@ export class UserController extends ControllerModel<IUser, IUserCreate, IUserUpd
     @Request() req: IAuthorizedRequest,
     @Path() userId: number
   ): Promise<IUser | undefined> {
-    return super.getItem(req, userId);
+    return super.getItem(req, userId,READ_COLUMNS[0]);
 
   }
 
@@ -65,7 +65,7 @@ export class UserController extends ControllerModel<IUser, IUserCreate, IUserUpd
     @Path() userId: number,
     @Body() body: IUserUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, userId, body);
+    return super.updateItem(req, userId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -76,7 +76,7 @@ export class UserController extends ControllerModel<IUser, IUserCreate, IUserUpd
     @Request() req: IAuthorizedRequest,
     @Path() userId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, userId);
+    return super.deleteItem(req, userId, READ_COLUMNS[0]);
   }
 
 }

@@ -63,7 +63,8 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
 
   public async getItem(
     req: IAuthorizedRequest,
-    id: number
+    id: number,
+    idName:string
   ): Promise<T | undefined> {
     const profileCode = req.profileCode ?? 0;
     const columns = filterColumns("READ", this.readColumns, this.access, profileCode);
@@ -74,7 +75,7 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
 
     const res = await Crud.Read<T>({
       table: this.table,
-      key: 'id',
+      key: idName,
       value: id,
       columns: columns
     });
@@ -85,7 +86,8 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
   public async updateItem(
     req: IAuthorizedRequest,
     id: number,
-    body: TUpdate extends {} ? TUpdate : never
+    idName:string,
+    body: TUpdate extends {} ? TUpdate : never,
   ): Promise<IUpdateResponse | undefined> {
     const profileCode = req.profileCode ?? 0;
     const bodyres: any = filterBody("UPDATE", body, this.access, profileCode);
@@ -99,7 +101,7 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
     const res = await Crud.Update<TUpdate>({
       body: body,
       table: this.table,
-      key: 'id',
+      key: idName,
       value: id
     });
 
@@ -108,7 +110,8 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
 
   public async deleteItem(
     req: IAuthorizedRequest,
-    id: number
+    id: number,
+    idName:string
   ): Promise<IUpdateResponse | undefined> {
     const profileCode = req.profileCode ?? 0;
     const columns = filterColumns("DELETE", this.readColumns, this.access, profileCode);
@@ -119,7 +122,7 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
 
     const res = await Crud.Delete({
       table: this.table,
-      key: 'id',
+      key: idName,
       value: id
     });
 

@@ -3,7 +3,7 @@ import swaggerUi from "swagger-ui-express";
 import { DefaultErrorHandler } from "./middleware/error-handler.middleware";
 import { RegisterRoutes } from './routes/routes';
 import { requestLogMiddleware } from "./utility/Logging/log.middleware";
-
+require('dotenv').config();
 
 // Récupérer le port des variables d'environnement ou préciser une valeur par défaut
 const PORT = process.env.PORT || 5050;

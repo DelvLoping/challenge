@@ -53,7 +53,7 @@ export class PromoController extends ControllerModel<IPromo, IPromoCreate, IProm
     @Request() req: IAuthorizedRequest,
     @Path() promoId: number
   ): Promise<IPromo | undefined> {
-    return super.getItem(req, promoId);
+    return super.getItem(req, promoId,READ_COLUMNS[0]);
 
   }
 
@@ -66,7 +66,7 @@ export class PromoController extends ControllerModel<IPromo, IPromoCreate, IProm
     @Path() promoId: number,
     @Body() body: IPromoUpdate
   ): Promise<IUpdateResponse | undefined> {
-    return super.updateItem(req, promoId, body);
+    return super.updateItem(req, promoId,READ_COLUMNS[0], body);
   }
 
   /**
@@ -77,7 +77,7 @@ export class PromoController extends ControllerModel<IPromo, IPromoCreate, IProm
     @Request() req: IAuthorizedRequest,
     @Path() promoId: number,
   ): Promise<IUpdateResponse | undefined> {
-    return super.deleteItem(req, promoId);
+    return super.deleteItem(req, promoId,READ_COLUMNS[0]);
   }
 
 }
