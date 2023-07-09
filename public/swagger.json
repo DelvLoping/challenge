@@ -1,0 +1,2619 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"IPromo": {
+				"properties": {
+					"promoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"promoName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"promoId",
+					"promoName"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IQuestion": {
+				"properties": {
+					"questionId": {
+						"type": "number",
+						"format": "double"
+					},
+					"questionText": {
+						"type": "string"
+					},
+					"questionCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"cmd": {
+						"type": "string"
+					},
+					"result": {
+						"type": "string"
+					},
+					"useBdd": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"questionId",
+					"questionText",
+					"questionCode",
+					"score",
+					"testId",
+					"cmd",
+					"result"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITestApi": {
+				"properties": {
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testName": {
+						"type": "string"
+					},
+					"scoreMax": {
+						"type": "number",
+						"format": "double"
+					},
+					"questions": {
+						"items": {
+							"$ref": "#/components/schemas/IQuestion"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"testId",
+					"testName"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IQuestionResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"value": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"value",
+					"success"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITestPromoUserApi": {
+				"properties": {
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"urlServer": {
+						"type": "string"
+					},
+					"userServer": {
+						"type": "string"
+					},
+					"passwordServer": {
+						"type": "string"
+					},
+					"bdUserServer": {
+						"type": "string"
+					},
+					"bdPasswordServer": {
+						"type": "string"
+					},
+					"promo": {
+						"$ref": "#/components/schemas/IPromo"
+					},
+					"test": {
+						"$ref": "#/components/schemas/ITestApi"
+					},
+					"responses": {
+						"items": {
+							"$ref": "#/components/schemas/IQuestionResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"testPromoUserId",
+					"testPromoId",
+					"userId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IProfile": {
+				"properties": {
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					},
+					"profileName": {
+						"type": "string"
+					},
+					"profileCode": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"profileId",
+					"profileName",
+					"profileCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_IProfile_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/IProfile"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ICreateResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IProfile.Exclude_keyofIProfile.profileId__": {
+				"properties": {
+					"profileName": {
+						"type": "string"
+					},
+					"profileCode": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"profileName",
+					"profileCode"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IProfile.profileId_": {
+				"$ref": "#/components/schemas/Pick_IProfile.Exclude_keyofIProfile.profileId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IProfileCreate": {
+				"$ref": "#/components/schemas/Omit_IProfile.profileId_"
+			},
+			"IUpdateResponse": {
+				"properties": {
+					"id": {
+						"anyOf": [
+							{
+								"type": "number",
+								"format": "double"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"rows": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Partial_IProfileCreate_": {
+				"properties": {
+					"profileName": {
+						"type": "string"
+					},
+					"profileCode": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"IProfileUpdate": {
+				"$ref": "#/components/schemas/Partial_IProfileCreate_"
+			},
+			"IIndexResponse_IPromo_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/IPromo"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IPromo.Exclude_keyofIPromo.promoId__": {
+				"properties": {
+					"promoName": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"promoName"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IPromo.promoId_": {
+				"$ref": "#/components/schemas/Pick_IPromo.Exclude_keyofIPromo.promoId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IPromoCreate": {
+				"$ref": "#/components/schemas/Omit_IPromo.promoId_"
+			},
+			"Partial_IPromoCreate_": {
+				"properties": {
+					"promoName": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"IPromoUpdate": {
+				"$ref": "#/components/schemas/Partial_IPromoCreate_"
+			},
+			"IIndexResponse_IQuestion_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/IQuestion"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IQuestion.Exclude_keyofIQuestion.questionId__": {
+				"properties": {
+					"questionText": {
+						"type": "string"
+					},
+					"questionCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"cmd": {
+						"type": "string"
+					},
+					"result": {
+						"type": "string"
+					},
+					"useBdd": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"questionText",
+					"questionCode",
+					"score",
+					"testId",
+					"cmd",
+					"result"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IQuestion.questionId_": {
+				"$ref": "#/components/schemas/Pick_IQuestion.Exclude_keyofIQuestion.questionId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IQuestionCreate": {
+				"$ref": "#/components/schemas/Omit_IQuestion.questionId_"
+			},
+			"Partial_IQuestionCreate_": {
+				"properties": {
+					"questionText": {
+						"type": "string"
+					},
+					"questionCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"cmd": {
+						"type": "string"
+					},
+					"result": {
+						"type": "string"
+					},
+					"useBdd": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"IQuestionUpdate": {
+				"$ref": "#/components/schemas/Partial_IQuestionCreate_"
+			},
+			"IReponse": {
+				"properties": {
+					"reponseId": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"questionId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"reponseId",
+					"questionId",
+					"testPromoUserId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_IReponse_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/IReponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IReponse.Exclude_keyofIReponse.reponseId__": {
+				"properties": {
+					"questionId": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"questionId",
+					"testPromoUserId"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IReponse.reponseId_": {
+				"$ref": "#/components/schemas/Pick_IReponse.Exclude_keyofIReponse.reponseId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IReponseCreate": {
+				"$ref": "#/components/schemas/Omit_IReponse.reponseId_"
+			},
+			"Partial_IReponseCreate_": {
+				"properties": {
+					"questionId": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"IReponseUpdate": {
+				"$ref": "#/components/schemas/Partial_IReponseCreate_"
+			},
+			"ITest": {
+				"properties": {
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testName": {
+						"type": "string"
+					},
+					"scoreMax": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"testId",
+					"testName"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_ITest_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/ITest"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_ITest.Exclude_keyofITest.testId__": {
+				"properties": {
+					"testName": {
+						"type": "string"
+					},
+					"scoreMax": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"testName"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_ITest.testId_": {
+				"$ref": "#/components/schemas/Pick_ITest.Exclude_keyofITest.testId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"ITestCreate": {
+				"$ref": "#/components/schemas/Omit_ITest.testId_"
+			},
+			"Partial_ITest_": {
+				"properties": {
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testName": {
+						"type": "string"
+					},
+					"scoreMax": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"ITestUpdate": {
+				"$ref": "#/components/schemas/Partial_ITest_"
+			},
+			"ITestPromo": {
+				"properties": {
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"promoId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"testPromoId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_ITestPromo_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/ITestPromo"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_ITestPromo.Exclude_keyofITestPromo.testPromoId__": {
+				"properties": {
+					"promoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_ITestPromo.testPromoId_": {
+				"$ref": "#/components/schemas/Pick_ITestPromo.Exclude_keyofITestPromo.testPromoId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"ITestPromoCreate": {
+				"$ref": "#/components/schemas/Omit_ITestPromo.testPromoId_"
+			},
+			"Partial_ITestPromoCreate_": {
+				"properties": {
+					"promoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"ITestPromoUpdate": {
+				"$ref": "#/components/schemas/Partial_ITestPromoCreate_"
+			},
+			"ITestPromoUser": {
+				"properties": {
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"urlServer": {
+						"type": "string"
+					},
+					"userServer": {
+						"type": "string"
+					},
+					"passwordServer": {
+						"type": "string"
+					},
+					"bdUserServer": {
+						"type": "string"
+					},
+					"bdPasswordServer": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"testPromoUserId",
+					"testPromoId",
+					"userId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_ITestPromoUser_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/ITestPromoUser"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_ITestPromoUser.Exclude_keyofITestPromoUser.testPromoUserId__": {
+				"properties": {
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"urlServer": {
+						"type": "string"
+					},
+					"userServer": {
+						"type": "string"
+					},
+					"passwordServer": {
+						"type": "string"
+					},
+					"bdUserServer": {
+						"type": "string"
+					},
+					"bdPasswordServer": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"testPromoId",
+					"userId"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_ITestPromoUser.testPromoUserId_": {
+				"$ref": "#/components/schemas/Pick_ITestPromoUser.Exclude_keyofITestPromoUser.testPromoUserId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"ITestPromoUserCreate": {
+				"$ref": "#/components/schemas/Omit_ITestPromoUser.testPromoUserId_"
+			},
+			"Partial_ITestPromoUserCreate_": {
+				"properties": {
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"urlServer": {
+						"type": "string"
+					},
+					"userServer": {
+						"type": "string"
+					},
+					"passwordServer": {
+						"type": "string"
+					},
+					"bdUserServer": {
+						"type": "string"
+					},
+					"bdPasswordServer": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"ITestPromoUserUpdate": {
+				"$ref": "#/components/schemas/Partial_ITestPromoUserCreate_"
+			},
+			"IUser": {
+				"properties": {
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"familyName": {
+						"type": "string"
+					},
+					"givenName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"userId",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IIndexResponse_IUser_": {
+				"properties": {
+					"page": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"total": {
+						"type": "number",
+						"format": "double"
+					},
+					"rows": {
+						"items": {
+							"$ref": "#/components/schemas/IUser"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"page",
+					"limit",
+					"total",
+					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_IUser.Exclude_keyofIUser.userId__": {
+				"properties": {
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					},
+					"familyName": {
+						"type": "string"
+					},
+					"givenName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"email"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_IUser.userId_": {
+				"$ref": "#/components/schemas/Pick_IUser.Exclude_keyofIUser.userId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"IUserCreate": {
+				"$ref": "#/components/schemas/Omit_IUser.userId_"
+			},
+			"Partial_IUserCreate_": {
+				"properties": {
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					},
+					"familyName": {
+						"type": "string"
+					},
+					"givenName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"IUserUpdate": {
+				"$ref": "#/components/schemas/Partial_IUserCreate_"
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "apiKey",
+				"name": "authorization",
+				"in": "header",
+				"authorizationUrl": "http://swagger.io/api/oauth/dialog"
+			}
+		}
+	},
+	"info": {
+		"title": "server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/auth/magic": {
+			"get": {
+				"operationId": "SendMagicLink",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										}
+									},
+									"required": [
+										"ok"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/auth/login": {
+			"get": {
+				"operationId": "LoginFromMaginLink",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"redirectTo": {
+											"type": "string"
+										},
+										"renew": {
+											"type": "string"
+										},
+										"access": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message",
+										"redirectTo",
+										"renew",
+										"access"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "jwt",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/challenge/{testName}/{promoName}": {
+			"get": {
+				"operationId": "GetChallenge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ITestPromoUserApi"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/profile": {
+			"get": {
+				"operationId": "GetProfiles",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_IProfile_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page de profiles.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouveau profile",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IProfileCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/profile/{profileId}": {
+			"get": {
+				"operationId": "ReadProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IProfile"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une profile avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "profileId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un profile avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "profileId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IProfileUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteProfile",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer un profile",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "profileId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/promo": {
+			"get": {
+				"operationId": "GetPromos",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_IPromo_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page de promos.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreatePromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer une nouvelle promo",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPromoCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/promo/{promoId}": {
+			"get": {
+				"operationId": "ReadPromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IPromo"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une promo avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "promoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdatePromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour une promo avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "promoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPromoUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletePromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer une promo",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "promoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/question": {
+			"get": {
+				"operationId": "GetQuestions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_IQuestion_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page de questions.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer une nouvelle question",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IQuestionCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/question/{questionId}": {
+			"get": {
+				"operationId": "ReadQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IQuestion"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une question avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "questionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un question avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "questionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IQuestionUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteQuestion",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer une question",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "questionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/reponse": {
+			"get": {
+				"operationId": "GetReponses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_IReponse_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page des réponses des utilisateurs  aux questions.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateReponse",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer une nouvelle réponse d'un utilisateur à une reponse",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReponseCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reponse/{reponseId}": {
+			"get": {
+				"operationId": "ReadReponse",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IReponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une réponse d'un utilisateur à une reponse avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "reponseId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateReponse",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour une réponse d'un utilisateur à une reponse avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "reponseId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReponseUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteReponse",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer une réponse d'un utilisateur à une reponse",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "reponseId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/test": {
+			"get": {
+				"operationId": "GetTests",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_ITest_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page de tests.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateTest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouveau test",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/test/{testId}": {
+			"get": {
+				"operationId": "ReadTest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ITest"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une test avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateTest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un test avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteTest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer un test",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/test_promo": {
+			"get": {
+				"operationId": "GetTestPromos",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_ITestPromo_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page des tests d'une promo.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateTestPromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouveau test d'une promo",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestPromoCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/test_promo/{testPromoId}": {
+			"get": {
+				"operationId": "ReadTestPromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ITestPromo"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer un test d'une promo avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateTestPromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un test d'une promo avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestPromoUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteTestPromo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer un test d'une promo",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/test_promo_user": {
+			"get": {
+				"operationId": "GettestPromoUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_ITestPromoUser_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page d'un test d'une promo pour un utilisateur.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreatetestPromoUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouveau test d'une promo pour un utilisateur",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestPromoUserCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/test_promo_user/{testPromoUserId}": {
+			"get": {
+				"operationId": "ReadtestPromoUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ITestPromoUser"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une test d'une promo pour un utilisateur avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoUserId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdatetestPromoUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un test d'une promo pour un utilisateur avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoUserId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITestPromoUserUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletetestPromoUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer un test d'une promo pour un utilisateur",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testPromoUserId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/user": {
+			"get": {
+				"operationId": "GetUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IIndexResponse_IUser_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page d'utilisateurs.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouvel utilisateur",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUserCreate"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/{userId}": {
+			"get": {
+				"operationId": "ReadUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUser"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une utilisateur avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Mettre à jour un utilisateur avec le ID passé dans le URL",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUserUpdate"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUpdateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Supprimer un utilisateur",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "userId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/user/{userId}/file": {
+			"post": {
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
