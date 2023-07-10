@@ -45,6 +45,7 @@ export class SSH {
             if (err) {
               console.log(err);
               resolve(err.toString());
+              return err.toString();
             }
             const mysqlConnection = mysql.createConnection({
               host: 'localhost', // Adresse locale
@@ -60,6 +61,7 @@ export class SSH {
               mysqlConnection.connect((error: any) => {
                 if (error) {
                   console.log('Erreur lors de la connexion MySQL :', error);
+                  resolve(error.toString());
                   return error.toString();
                 }
 
@@ -67,6 +69,7 @@ export class SSH {
                   if (mysqlError) {
                     console.log('Erreur lors de l\'exécution de la commande MySQL :', mysqlError);
                     resolve(mysqlError);
+                    return mysqlError;
                   }
                   let json = JSON.stringify(results)
 
@@ -80,6 +83,7 @@ export class SSH {
               });
             } catch (err: any) {
               console.log(err);
+              resolve(err.toString());
               return err.toString();
             }
           }

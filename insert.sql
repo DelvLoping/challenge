@@ -39,7 +39,7 @@ INSERT INTO test_promo (testId, promoId)
 VALUES (1, 1);
 
 INSERT INTO test_promo_user (testPromoId, userId, urlServer, userServer, passwordServer, bdUserServer, bdPasswordServer)
-VALUES (1, 1, '51.159.171.194', 'challenge', '', 'flo', 'test123');
+VALUES (1, 1, '51.159.171.194', 'challenge', '', 'challenge', 'test123');
 
 
 /* ... */
