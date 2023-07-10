@@ -35,6 +35,7 @@ export class SSH {
   public async execCommand(command: string, useBdd: boolean): Promise<string> {
     return new Promise((resolve, reject) => {
       if (useBdd) {
+        console.log('useBdd : ', command);
         this.sshClient.forwardOut(
           'localhost', // Adresse locale
           0, // Port local (0 signifie que le port sera automatiquement attribué)
@@ -53,22 +54,23 @@ export class SSH {
               database: 'challenges',
               stream: stream // Utilisez le flux du tunnel SSH comme socket pour la connexion MySQL
             });
+            console.log('mysqlConnection : ', mysqlConnection);
 
             try {
               mysqlConnection.connect((error: any) => {
                 if (error) {
-                  //console.log('Erreur lors de la connexion MySQL :', error);
+                  console.log('Erreur lors de la connexion MySQL :', error);
                   return error.toString();
                 }
 
                 mysqlConnection.query(command, (mysqlError: any, results: any, fields: any) => {
                   if (mysqlError) {
-                    //console.log('Erreur lors de l\'exécution de la commande MySQL :', mysqlError);
+                    console.log('Erreur lors de l\'exécution de la commande MySQL :', mysqlError);
                     resolve(mysqlError);
                   }
                   let json = JSON.stringify(results)
 
-                  //console.log('result : ',typeof results,results,' res string : ',results.toString(), " json : ",json);
+                  console.log('result : ',typeof results,results,' res string : ', " json : ",json);
                   // Traitez les résultats MySQL ici
                   resolve(json);
 
@@ -77,7 +79,7 @@ export class SSH {
                 });
               });
             } catch (err: any) {
-              //console.log(err);
+              console.log(err);
               return err.toString();
             }
           }
