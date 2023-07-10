@@ -75,6 +75,17 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IReponse": {
+        "dataType": "refObject",
+        "properties": {
+            "reponseId": {"dataType":"double","required":true},
+            "score": {"dataType":"double"},
+            "questionId": {"dataType":"double","required":true},
+            "testPromoUserId": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ITestPromoUserApi": {
         "dataType": "refObject",
         "properties": {
@@ -89,6 +100,7 @@ const models: TsoaRoute.Models = {
             "promo": {"ref":"IPromo"},
             "test": {"ref":"ITestApi"},
             "responses": {"dataType":"array","array":{"dataType":"refObject","ref":"IQuestionResponse"}},
+            "reponsesBd": {"dataType":"array","array":{"dataType":"refObject","ref":"IReponse"}},
         },
         "additionalProperties": false,
     },
@@ -226,17 +238,6 @@ const models: TsoaRoute.Models = {
     "IQuestionUpdate": {
         "dataType": "refAlias",
         "type": {"ref":"Partial_IQuestionCreate_","validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "IReponse": {
-        "dataType": "refObject",
-        "properties": {
-            "reponseId": {"dataType":"double","required":true},
-            "score": {"dataType":"double"},
-            "questionId": {"dataType":"double","required":true},
-            "testPromoUserId": {"dataType":"double","required":true},
-        },
-        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "IIndexResponse_IReponse_": {
@@ -546,6 +547,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getChallenge.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/challenge/reponses/:testName/:promoName',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(ChallengeController)),
+            ...(fetchMiddlewares<RequestHandler>(ChallengeController.prototype.getChallengeReponses)),
+
+            function ChallengeController_getChallengeReponses(request: any, response: any, next: any) {
+            const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ChallengeController();
+
+
+              const promise = controller.getChallengeReponses.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

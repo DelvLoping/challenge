@@ -114,6 +114,33 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IReponse": {
+				"properties": {
+					"reponseId": {
+						"type": "number",
+						"format": "double"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"questionId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testPromoUserId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"reponseId",
+					"questionId",
+					"testPromoUserId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ITestPromoUserApi": {
 				"properties": {
 					"testPromoUserId": {
@@ -152,6 +179,12 @@
 					"responses": {
 						"items": {
 							"$ref": "#/components/schemas/IQuestionResponse"
+						},
+						"type": "array"
+					},
+					"reponsesBd": {
+						"items": {
+							"$ref": "#/components/schemas/IReponse"
 						},
 						"type": "array"
 					}
@@ -461,33 +494,6 @@
 			},
 			"IQuestionUpdate": {
 				"$ref": "#/components/schemas/Partial_IQuestionCreate_"
-			},
-			"IReponse": {
-				"properties": {
-					"reponseId": {
-						"type": "number",
-						"format": "double"
-					},
-					"score": {
-						"type": "number",
-						"format": "double"
-					},
-					"questionId": {
-						"type": "number",
-						"format": "double"
-					},
-					"testPromoUserId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"reponseId",
-					"questionId",
-					"testPromoUserId"
-				],
-				"type": "object",
-				"additionalProperties": false
 			},
 			"IIndexResponse_IReponse_": {
 				"properties": {
@@ -1107,6 +1113,29 @@
 		"/challenge/{testName}/{promoName}": {
 			"get": {
 				"operationId": "GetChallenge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ITestPromoUserApi"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/challenge/reponses/{testName}/{promoName}": {
+			"get": {
+				"operationId": "GetChallengeReponses",
 				"responses": {
 					"200": {
 						"description": "Ok",

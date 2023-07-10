@@ -16,6 +16,10 @@ VALUES ('student', 1),
 
 INSERT INTO user (email, givenName, familyName, profileId)
 VALUES ('Florent.delobe@yahoo.fr', 'florent', 'delobe', 1);
+INSERT INTO user (email, givenName, familyName, profileId)
+VALUES ('florent.delobe02400@gmail.com', 'florent', 'delobe', 2);
+INSERT INTO user (email, givenName, familyName, profileId)
+VALUES ('bluesiders00@gmail.com', 'florent', 'delobe', 3);
 
 INSERT INTO promo (promoName)
 VALUES ('mt4'),

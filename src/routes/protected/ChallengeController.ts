@@ -4,7 +4,7 @@ import { IAuthorizedRequest } from "../../types/IAuthorizedRequest";
 import { ACCESSTESTPROMOUSER } from "../../model/ITestPromoUser";
 import { ACCESSTEST, ITest } from "../../model/ITest";
 import { ACCESSPROMO, IPromo } from "../../model/IPromo";
-import { getChallengeMiddleware, clearResponseMiddleware, connecteSshMiddleware, testQuestionChallenge } from "../../middleware/challenge.middleware";
+import { getChallengeMiddleware, clearResponseMiddleware, connecteSshMiddleware, testQuestionChallenge, getChallengesMiddleware, getReponsesForEachChallenges } from "../../middleware/challenge.middleware";
 import { ITestPromoUserApi } from "../../types/ITestPromoUserApi";
 import { filterBody } from "../../utility/acces/Access";
 import { ACCESSQUESTION } from "../../model/IQuestion";
@@ -44,6 +44,16 @@ export class ChallengeController {
       challenge = filterBody("READ", challenge, ACCESSTESTPROMOUSER, profileCode);
     }
     return challenge
+  }
+
+  @Get('/reponses/{testName}/{promoName}')
+  @Middlewares(getReponsesForEachChallenges)
+  @Middlewares(getChallengesMiddleware)
+  public async getChallengeReponses(
+    @Request() request: IAuthorizedRequest,
+  ): Promise<ITestPromoUserApi | undefined> {
+
+    return request.resLastMiddleware;;
   }
 
 }

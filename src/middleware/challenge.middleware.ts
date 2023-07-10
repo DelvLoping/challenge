@@ -1,4 +1,4 @@
-import {  Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { Crud } from "../utility/Crud";
 
 import { IAuthorizedRequest } from "../types/IAuthorizedRequest";
@@ -8,7 +8,7 @@ import { IIndexResponse, IReadWhere } from "../types/IIndexQuery";
 import { IPromo } from "../model/IPromo";
 import { ITestPromo } from "../model/ITestPromo";
 import { IQuestion } from "../model/IQuestion";
-import {  IReponseCreate } from "../model/IReponse";
+import { IReponse, IReponseCreate } from "../model/IReponse";
 import path from "path";
 import fs from "fs";
 import { ApiError } from "../utility/Error/ApiError";
@@ -129,6 +129,115 @@ export const getChallengeMiddleware = async (req: IAuthorizedRequest, res: Respo
 
 /**
  * 
+ * @param req 
+ * @param res 
+ * @param next 
+ * @returns le challenge de l'utilisateur connecté pour le test et la promo passés dans l'URL. Si l'utilisateur n'a pas de challenge pour ce test et cette promo, retourne null. Si il n'y a pas de test ou de promo correspondant, retourne une erreur 404.
+ */
+export const getChallengesMiddleware = async (req: IAuthorizedRequest, res: Response, next: NextFunction) => {
+    try {
+        const { testName, promoName } = req.params;
+        const userId = req.userId;
+        const profileCode = req.profileCode;
+
+        if (!profileCode || profileCode < 2) {
+            throw new ApiError(ErrorCode.Unauthorized, 'validation/notAuthorized', `Operation not authorized`);
+        }
+        let res: IIndexResponse<ITestPromoUser> | null = null;
+        let where: IReadWhere | null = null;
+        let test: ITestApi | null = null;
+        let promo: IPromo | null = null;
+        let questions: IIndexResponse<IQuestion> | null = null;
+
+        if (testName) {
+            try {
+                test = await Crud.Read<ITest>({
+                    table: 'test',
+                    columns: ["*"],
+                    key: 'testName',
+                    value: testName
+                })
+            } catch (error) {
+                console.log(error);
+                next(error);
+            }
+        }
+
+        if (test?.testId) {
+            try {
+                questions = await Crud.Index<IQuestion>({
+                    table: 'question',
+                    columns: ["*"],
+                    where: { testId: test.testId }
+                })
+
+                test.questions = questions.rows;
+            } catch (error) {
+                console.log(error);
+                test.questions = [];
+            }
+        }
+
+        if (promoName) {
+            try {
+                promo = await Crud.Read<IPromo>({
+                    table: 'promo',
+                    columns: ["*"],
+                    key: 'promoName',
+                    value: promoName
+                })
+            } catch (error) {
+                console.log(error);
+                next(error);
+            }
+
+        }
+
+        if (test?.testId && promo?.promoId) {
+            where = {}
+            where.testId = test.testId;
+            where.promoId = promo.promoId;
+            try {
+                let testPromo = await Crud.Read<ITestPromo>({
+                    table: 'test_promo',
+                    columns: ["*"],
+                    where
+                })
+
+                if (testPromo?.testPromoId) {
+                    where = {}
+                    where.testPromoId = testPromo.testPromoId;
+                    try {
+                        let testPromoUser = await Crud.Index<ITestPromoUser>({
+                            table: 'test_promo_user',
+                            columns: ["*"],
+                            where
+                        })
+
+                        if (testPromoUser?.total > 0) {
+                            res = testPromoUser;
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        res = null;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+                next(error);
+            }
+
+        }
+
+        req.resLastMiddleware = res;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * 
  * @param req
  * @param res
  * @param next
@@ -162,29 +271,27 @@ export const connecteSshMiddleware = async (req: IAuthorizedRequest, res: Respon
                 host: res.urlServer,
                 port: 22,
                 username: res.userServer,
-                password: res.passwordServer, 
+                password: res.passwordServer,
                 privateKey: fs.readFileSync(idRsaPath)
             };
-            let bdConnectionOptions:IBdConnectionOptions|undefined=undefined
-            if(res.bdUserServer && res.bdPasswordServer)
-            {
-            bdConnectionOptions = {
-                bdUserServer:res.bdUserServer,
-                bdPasswordServer:res.bdPasswordServer
+            let bdConnectionOptions: IBdConnectionOptions | undefined = undefined
+            if (res.bdUserServer && res.bdPasswordServer) {
+                bdConnectionOptions = {
+                    bdUserServer: res.bdUserServer,
+                    bdPasswordServer: res.bdPasswordServer
+                }
             }
-        }
-            const sshClient:SSH= new SSH(connectionOptions,bdConnectionOptions);
+            const sshClient: SSH = new SSH(connectionOptions, bdConnectionOptions);
 
-            const bdUserServer:string | undefined = res.bdUserServer??'';
-            const bdPasswordServer:string| undefined = res.bdPasswordServer??'';
+            const bdUserServer: string | undefined = res.bdUserServer ?? '';
+            const bdPasswordServer: string | undefined = res.bdPasswordServer ?? '';
 
-            
-            
-            
-            if(res.test?.questions)
-            {
-                let questions = res.test?.questions?.map((question:IQuestion)=>{
-                    if(question.useBdd){
+
+
+
+            if (res.test?.questions) {
+                let questions = res.test?.questions?.map((question: IQuestion) => {
+                    if (question.useBdd) {
                         let res = question.cmd
                         res = res.replace('{{bdUserServer}}', bdUserServer).replace('{{bdPasswordServer}}', bdPasswordServer);
                         question.cmd = res;
@@ -194,7 +301,7 @@ export const connecteSshMiddleware = async (req: IAuthorizedRequest, res: Respon
                 res.test.questions = questions;
                 sshClient.setCommands(res.test?.questions);
             }
-                
+
             try {
                 await sshClient.connect();
                 let resultCommands: IQuestionResponse[] = await sshClient.execCommands();
@@ -228,19 +335,60 @@ export const testQuestionChallenge = async (req: IAuthorizedRequest, res: Respon
                         testPromoUserId: res.testPromoUserId,
                         score: question.score
                     }
-                    try{
+                    try {
 
                         await Crud.Create<IReponseCreate>({
                             table: 'reponse',
                             body: response
                         });
-                    }catch(error){
+                    } catch (error) {
                         console.log(error);
                     }
                 }
             }
             res.responses = resultCommands;
         }
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+/**
+ * 
+ * @param req
+ * @param res
+ * @param next
+ * @returns 
+ **/
+export const getReponsesForEachChallenges = async (req: IAuthorizedRequest, res: Response, next: NextFunction) => {
+    try {
+        const res: IIndexResponse<ITestPromoUserApi> | null = req.resLastMiddleware;
+        let where: IReadWhere | null = null;
+
+        if (res?.total && res?.total > 0) {
+            for (const testPromoUser of res.rows) {
+                let reponsesBd: IIndexResponse<IReponse> | null = null;
+                if (testPromoUser) {
+                    where = {}
+                    where.testPromoUserId = testPromoUser.testPromoUserId;
+                    reponsesBd = await Crud.Index({
+                        table: 'reponse',
+                        columns: ["*"],
+                        where
+                    });
+
+                    if (reponsesBd.total > 0) {
+                        testPromoUser.reponsesBd = reponsesBd.rows;
+                    } else {
+                        testPromoUser.reponsesBd = [];
+                    }
+                }
+            }
+        }
+
+        req.resLastMiddleware = res;
 
         next();
     } catch (error) {
