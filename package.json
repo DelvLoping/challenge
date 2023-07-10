@@ -7,7 +7,7 @@
     "server": "nodemon",
     "clean": "rimraf build",
     "build": "npm run clean && npm run swagger && tsc && copyfiles public/**/* build/",
-    "start-api": "node ./build/server.js",
+    "start-api": "node ./server.js",
     "swagger": "tsoa spec-and-routes"
   },
   "author": "",

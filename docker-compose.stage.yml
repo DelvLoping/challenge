@@ -17,6 +17,13 @@ services:
       - STORAGE_REGION=fr-par
       - STORAGE_ENDPOINT=https://s3.fr-par.scw.cloud
       - STORAGE_BUCKET=object-storage-playground
+      - MJ_APIKEY=${MJ_APIKEY}
+      - MJ_EMAIL_FROM=${MJ_EMAIL_FROM}
+      - MJ_EMAIL_NAME=${MJ_EMAIL_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
     networks:
       - api-network
     restart: always
