@@ -1125,12 +1125,30 @@
 						}
 					}
 				},
+				"description": "Lancé le challenge pour l'utilisateur connecté",
 				"security": [
 					{
 						"jwt": []
 					}
 				],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "promoName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/challenge/reponses/{testName}/{promoName}": {
@@ -1148,12 +1166,30 @@
 						}
 					}
 				},
+				"description": "Récupérer les réponses pour chaque challenge",
 				"security": [
 					{
 						"jwt": []
 					}
 				],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "path",
+						"name": "testName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "promoName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/profile": {

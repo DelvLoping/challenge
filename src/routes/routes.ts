@@ -534,6 +534,8 @@ export function RegisterRoutes(app: Router) {
 
             function ChallengeController_getChallenge(request: any, response: any, next: any) {
             const args = {
+                    testName: {"in":"path","name":"testName","required":true,"dataType":"string"},
+                    promoName: {"in":"path","name":"promoName","required":true,"dataType":"string"},
                     request: {"in":"request","name":"request","required":true,"dataType":"object"},
             };
 
@@ -560,6 +562,8 @@ export function RegisterRoutes(app: Router) {
 
             function ChallengeController_getChallengeReponses(request: any, response: any, next: any) {
             const args = {
+                    testName: {"in":"path","name":"testName","required":true,"dataType":"string"},
+                    promoName: {"in":"path","name":"promoName","required":true,"dataType":"string"},
                     request: {"in":"request","name":"request","required":true,"dataType":"object"},
             };
 

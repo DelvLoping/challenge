@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Get, Route, Security, Request, Query, Middlewares } from 'tsoa';
+import { Get, Route, Security, Request, Path, Middlewares } from 'tsoa';
 import { IAuthorizedRequest } from "../../types/IAuthorizedRequest";
 import { ACCESSTESTPROMOUSER } from "../../model/ITestPromoUser";
 import { ACCESSTEST, ITest } from "../../model/ITest";
@@ -17,12 +17,17 @@ const router = Router({ mergeParams: true });
 @Security('jwt')
 export class ChallengeController {
 
+  /**
+   * Lancé le challenge pour l'utilisateur connecté
+   **/ 
   @Get('/{testName}/{promoName}')
   @Middlewares(testQuestionChallenge)
   @Middlewares(connecteSshMiddleware)
   @Middlewares(clearResponseMiddleware)
   @Middlewares(getChallengeMiddleware)
   public async getChallenge(
+    @Path() testName: string,
+    @Path() promoName: string,
     @Request() request: IAuthorizedRequest,
   ): Promise<ITestPromoUserApi | undefined> {
     let challenge: ITestPromoUserApi | undefined = request.resLastMiddleware;
@@ -46,10 +51,15 @@ export class ChallengeController {
     return challenge
   }
 
+  /**
+   * Récupérer les réponses pour chaque challenge
+   **/ 
   @Get('/reponses/{testName}/{promoName}')
   @Middlewares(getReponsesForEachChallenges)
   @Middlewares(getChallengesMiddleware)
   public async getChallengeReponses(
+    @Path() testName: string,
+    @Path() promoName: string,
     @Request() request: IAuthorizedRequest,
   ): Promise<ITestPromoUserApi | undefined> {
 
