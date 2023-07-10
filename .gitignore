@@ -12,4 +12,3 @@
 /.myclirc
 .env
 /secrets/
-/secrets/signing/
