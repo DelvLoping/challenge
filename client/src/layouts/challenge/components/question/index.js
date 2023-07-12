@@ -81,6 +81,7 @@ function Question(props) {
     }
 
     let isChange = props.question ? props.question.questionCode !== questionCode || props.question.questionText !== questionText || props.question.score !== score || props.question.cmd !== cmd || props.question.result !== result || props.question.useBdd !== useBdd : false;
+    let isAdd = !props.question && (questionCode || questionText || score || cmd || result || useBdd);
     return (
         <>
             <Card m={1}>
@@ -185,7 +186,7 @@ function Question(props) {
                             </VuiBox>
                         </VuiBox>
                         <VuiBox mt={4} mb={1}>
-                            <VuiButton color="info" fullWidth onClick={sendQuestion} disabled={!isChange}>
+                            <VuiButton color="info" fullWidth onClick={sendQuestion} disabled={props.question?!isChange:isAdd}>
                                 {props.question ?isChange?"UPDATE" :"NO CHANGE": "ADD"}
                             </VuiButton>
                         </VuiBox>

@@ -21,9 +21,7 @@ function Results(props){
             props.challenge.map((challenge) => {
                 let score = 0;
                 challenge.reponsesBd.map((response) => { 
-                    if(response.success){
                         score += response.score;
-                    }
                 })
                 tempRows.push({"Nom":challenge.user.familyName,"Prenom":challenge.user.givenName,"Email":challenge.user.email,"Serveur IP":challenge.urlServer,"Score":score})
             });
