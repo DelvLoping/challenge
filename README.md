@@ -12,18 +12,18 @@ Le backend API est développé en utilisant Node.js, Typescript et Express.js. I
 
 Le backend suit une architecture en couches pour une meilleure modularité et maintenabilité :
 
-#### Routes : 
-Les routes définissent les endpoints de l'API et les actions correspondantes à effectuer lorsqu'une requête est reçue.
-#### Middlewares : 
-Les middlewares sont des fonctions intermédiaires qui sont exécutées avant ou après le traitement des routes. Ils permettent de gérer des aspects transversaux tels que l'authentification, l'autorisation, la validation des données, etc.
-#### Controllers : 
-Les controllers gèrent la logique métier de l'API en traitant les requêtes, en interagissant avec les services appropriés et en renvoyant les réponses.
-#### Services : 
-Les services encapsulent la logique métier de l'application et interagissent avec la base de données pour récupérer et manipuler les données.
-#### Base de données : 
-Une base de données MySQL est utilisée pour stocker les données des promos, des étudiants, des scores et des tâches.
-#### Authentification et Autorisation : 
-Les JWT sont utilisés pour gérer l'authentification des utilisateurs et s'assurer que seuls les utilisateurs autorisés peuvent accéder à certaines fonctionnalités.
+> #### Routes : 
+> Les routes définissent les endpoints de l'API et les actions correspondantes à effectuer lorsqu'une requête est reçue.
+> #### Middlewares : 
+> Les middlewares sont des fonctions intermédiaires qui sont exécutées avant ou après le traitement des routes. Ils permettent de gérer des aspects transversaux tels que l'authentification, l'autorisation, la validation des données, etc.
+> #### Controllers : 
+> Les controllers gèrent la logique métier de l'API en traitant les requêtes, en interagissant avec les services appropriés et en renvoyant les réponses.
+> #### Services : 
+> Les services encapsulent la logique métier de l'application et interagissent avec la base de données pour récupérer et manipuler les données.
+> #### Base de données : 
+> Une base de données MySQL est utilisée pour stocker les données des promos, des étudiants, des scores et des tâches.
+> #### Authentification et Autorisation : 
+> Les JWT sont utilisés pour gérer l'authentification des utilisateurs et s'assurer que seuls les utilisateurs autorisés peuvent accéder à certaines fonctionnalités.
 Le backend est déployé à l'aide d'un conteneur Docker, ce qui facilite le déploiement et la gestion de l'application sur différents environnements.
 
 ### Frontend
@@ -43,14 +43,14 @@ Le projet utilise la bibliothèque ssh2 pour établir des connexions SSH à part
 ### Middlewares
 Les middlewares jouent un rôle essentiel dans le backend API. Voici quelques exemples de middlewares utilisés dans le projet :
 
-#### Middleware d'authentification : 
-Vérifie la validité du JWT envoyé par l'utilisateur, permettant ainsi de sécuriser les endpoints nécessitant une authentification.
-#### Middleware d'autorisation : 
-Vérifie les droits d'accès de l'utilisateur aux ressources demandées, en fonction de son rôle et des autorisations définies.
-#### Middleware de validation des données : 
-Valide les données envoyées par l'utilisateur, s'assurant qu'elles respectent les règles définies (par exemple, format de l'email, longueur minimale du mot de passe, etc.).
-#### Middleware de logging : 
-Enregistre les informations de journalisation pour suivre les requêtes, les erreurs et les actions importantes effectuées par l'API.
+> #### Middleware d'authentification : 
+> Vérifie la validité du JWT envoyé par l'utilisateur, permettant ainsi de sécuriser les endpoints nécessitant une authentification.
+> #### Middleware d'autorisation : 
+> Vérifie les droits d'accès de l'utilisateur aux ressources demandées, en fonction de son rôle et des autorisations définies.
+> #### Middleware de validation des données : 
+> Valide les données envoyées par l'utilisateur, s'assurant qu'elles respectent les règles définies (par exemple, format de l'email, longueur minimale du mot de passe, etc.).
+> #### Middleware de logging : 
+> Enregistre les informations de journalisation pour suivre les requêtes, les erreurs et les actions importantes effectuées par l'API.
 
 Ces middlewares contribuent à la sécurité, à la validation des données et à la traçabilité des actions effectuées dans l'application.
 
