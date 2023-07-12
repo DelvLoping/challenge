@@ -12,3 +12,4 @@
 /.myclirc
 .env
 /secrets/
+/client/node_modules/

@@ -25,9 +25,13 @@ export class SSH {
 
   public async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
+
       this.sshClient.on('ready', () => {
         console.log('Connection ssh réussie')
         resolve();
+      }).on('error', (err) => {
+        console.log('Erreur lors de la connexion ssh :', err);
+        reject(err);
       }).connect(this.connectionOptions);
     });
   }

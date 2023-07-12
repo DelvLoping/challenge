@@ -7,6 +7,8 @@ import { AuthController } from './AuthController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ChallengeController } from './protected/ChallengeController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { CurrentUserController } from './protected/CurrentUserController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { ProfileController } from './protected/ProfileController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { PromoController } from './protected/PromoController';
@@ -22,6 +24,8 @@ import { TestPromoController } from './protected/TestPromoController';
 import { TestPromoUserController } from './protected/TestPromoUserController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UserController } from './protected/UserController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { UserSignUpController } from './protected/UserSignUpController';
 import { expressAuthentication } from './../auth/authentication';
 // @ts-ignore - no great way to install types from subpackage
 const promiseAny = require('promise.any');
@@ -60,6 +64,7 @@ const models: TsoaRoute.Models = {
             "testId": {"dataType":"double","required":true},
             "testName": {"dataType":"string","required":true},
             "scoreMax": {"dataType":"double"},
+            "useBdd": {"dataType":"boolean"},
             "questions": {"dataType":"array","array":{"dataType":"refObject","ref":"IQuestion"}},
         },
         "additionalProperties": false,
@@ -86,6 +91,18 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IUser": {
+        "dataType": "refObject",
+        "properties": {
+            "userId": {"dataType":"double","required":true},
+            "familyName": {"dataType":"string"},
+            "givenName": {"dataType":"string"},
+            "email": {"dataType":"string","required":true},
+            "profileId": {"dataType":"double"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ITestPromoUserApi": {
         "dataType": "refObject",
         "properties": {
@@ -101,6 +118,7 @@ const models: TsoaRoute.Models = {
             "test": {"ref":"ITestApi"},
             "responses": {"dataType":"array","array":{"dataType":"refObject","ref":"IQuestionResponse"}},
             "reponsesBd": {"dataType":"array","array":{"dataType":"refObject","ref":"IReponse"}},
+            "user": {"ref":"IUser"},
         },
         "additionalProperties": false,
     },
@@ -111,6 +129,20 @@ const models: TsoaRoute.Models = {
             "profileId": {"dataType":"double","required":true},
             "profileName": {"dataType":"string","required":true},
             "profileCode": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "IUserApi": {
+        "dataType": "refObject",
+        "properties": {
+            "userId": {"dataType":"double","required":true},
+            "familyName": {"dataType":"string"},
+            "givenName": {"dataType":"string"},
+            "email": {"dataType":"string","required":true},
+            "profileId": {"dataType":"double"},
+            "challenges": {"dataType":"array","array":{"dataType":"refObject","ref":"ITestPromoUserApi"}},
+            "profile": {"ref":"IProfile"},
         },
         "additionalProperties": false,
     },
@@ -282,6 +314,7 @@ const models: TsoaRoute.Models = {
             "testId": {"dataType":"double","required":true},
             "testName": {"dataType":"string","required":true},
             "scoreMax": {"dataType":"double"},
+            "useBdd": {"dataType":"boolean"},
         },
         "additionalProperties": false,
     },
@@ -299,7 +332,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_ITest.Exclude_keyofITest.testId__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"testName":{"dataType":"string","required":true},"scoreMax":{"dataType":"double"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"useBdd":{"dataType":"boolean"},"testName":{"dataType":"string","required":true},"scoreMax":{"dataType":"double"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_ITest.testId_": {
@@ -314,7 +347,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_ITest_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"testId":{"dataType":"double"},"testName":{"dataType":"string"},"scoreMax":{"dataType":"double"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"testId":{"dataType":"double"},"testName":{"dataType":"string"},"scoreMax":{"dataType":"double"},"useBdd":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ITestUpdate": {
@@ -339,6 +372,18 @@ const models: TsoaRoute.Models = {
             "limit": {"dataType":"double","required":true},
             "total": {"dataType":"double","required":true},
             "rows": {"dataType":"array","array":{"dataType":"refObject","ref":"ITestPromo"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ITestPromoApi": {
+        "dataType": "refObject",
+        "properties": {
+            "testPromoId": {"dataType":"double","required":true},
+            "testId": {"dataType":"double"},
+            "promoId": {"dataType":"double"},
+            "test": {"ref":"ITest"},
+            "promo": {"ref":"IPromo"},
         },
         "additionalProperties": false,
     },
@@ -417,18 +462,6 @@ const models: TsoaRoute.Models = {
     "ITestPromoUserUpdate": {
         "dataType": "refAlias",
         "type": {"ref":"Partial_ITestPromoUserCreate_","validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "IUser": {
-        "dataType": "refObject",
-        "properties": {
-            "userId": {"dataType":"double","required":true},
-            "familyName": {"dataType":"string"},
-            "givenName": {"dataType":"string"},
-            "email": {"dataType":"string","required":true},
-            "profileId": {"dataType":"double"},
-        },
-        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "IIndexResponse_IUser_": {
@@ -577,6 +610,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.getChallengeReponses.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/currentUser',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(CurrentUserController)),
+            ...(fetchMiddlewares<RequestHandler>(CurrentUserController.prototype.getCurrentUser)),
+
+            function CurrentUserController_getCurrentUser(request: any, response: any, next: any) {
+            const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new CurrentUserController();
+
+
+              const promise = controller.getCurrentUser.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
@@ -867,6 +926,7 @@ export function RegisterRoutes(app: Router) {
                     req: {"in":"request","name":"req","required":true,"dataType":"object"},
                     page: {"in":"query","name":"page","dataType":"string"},
                     limit: {"in":"query","name":"limit","dataType":"string"},
+                    testId: {"in":"query","name":"testId","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -1296,6 +1356,34 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/test_promo/open',
+            authenticateMiddleware([{"jwt":[]}]),
+            ...(fetchMiddlewares<RequestHandler>(TestPromoController)),
+            ...(fetchMiddlewares<RequestHandler>(TestPromoController.prototype.getTestPromosOpen)),
+
+            function TestPromoController_getTestPromosOpen(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                    page: {"in":"query","name":"page","dataType":"string"},
+                    limit: {"in":"query","name":"limit","dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TestPromoController();
+
+
+              const promise = controller.getTestPromosOpen.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/test_promo',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(TestPromoController)),
@@ -1673,6 +1761,32 @@ export function RegisterRoutes(app: Router) {
 
 
               const promise = controller.deleteUser.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/user_sign_up',
+            ...(fetchMiddlewares<RequestHandler>(UserSignUpController)),
+            ...(fetchMiddlewares<RequestHandler>(UserSignUpController.prototype.createUser)),
+
+            function UserSignUpController_createUser(request: any, response: any, next: any) {
+            const args = {
+                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                    body: {"in":"body","name":"body","required":true,"ref":"IUserCreate"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new UserSignUpController();
+
+
+              const promise = controller.createUser.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

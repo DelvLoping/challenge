@@ -29,9 +29,14 @@ export class QuestionController extends ControllerModel<IQuestion, IQuestionCrea
     @Query() page?: string,
     /** Le nombre d'éléments à récupérer (max 50) */
     @Query() limit?: string,
+    /** FIltre sur le test */
+    @Query() testId?: string,
   ): Promise<IIndexResponse<IQuestion> | undefined> {
-    return super.getItems(req, page, limit);
+    const id = testId ? testId : undefined;
+    return super.getItems(req, page, limit,'testId',id);
   }
+
+
 
   /**
    * Créer une nouvelle question

@@ -10,6 +10,7 @@ export interface ITest{
   testId: number;
   testName: string;
   scoreMax?: number;
+  useBdd?: boolean;
 }
 export const ACCESSTEST:Access[] = [{
   attribut: "testId",
@@ -21,6 +22,10 @@ export const ACCESSTEST:Access[] = [{
   action: [{action:"CREATE",codeMin:2},{action:"READ",codeMin:1},{action:"UPDATE",codeMin:2},{action:"DELETE",codeMin:2}]
 },{
   attribut: "scoreMax",
+  table: "test",
+  action: [{action:"CREATE",codeMin:2},{action:"READ",codeMin:1},{action:"UPDATE",codeMin:2},{action:"DELETE",codeMin:2}]
+},{
+  attribut: "useBdd",
   table: "test",
   action: [{action:"CREATE",codeMin:2},{action:"READ",codeMin:1},{action:"UPDATE",codeMin:2},{action:"DELETE",codeMin:2}]
 }]

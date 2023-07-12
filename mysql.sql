@@ -37,6 +37,7 @@ create table if not exists test(
   testId int auto_increment not null,
   testName varchar(256) unique not null,
   scoreMax int default 20,
+  useBdd boolean default false,
   primary key(testId)
 );
 

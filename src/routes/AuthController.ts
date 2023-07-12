@@ -63,7 +63,7 @@ export class AuthController {
     
     const emailer = new Email();
 
-    const link = (process.env.FRONT_URL || 'http://localhost:' + (process.env.PORT || 5050)) + '/auth/login?jwt=' + encodeURIComponent(encoded);
+    const link = (process.env.FRONT_URL || 'http://localhost:' + (process.env.PORT || 3000)) + '/authentication/sign-in?jwt=' + encodeURIComponent(encoded);
     await emailer.sendMagicLink(email, link, 'Mon service');
 
     return {
@@ -138,7 +138,7 @@ export class AuthController {
     return {
       access: access,
       renew: renew,
-      redirectTo: 'https://lien.vers.mon.front',
+      redirectTo: '/dashboard',
       message: 'Normalement ce endpoint va demander au navigateur de rediriger vers votre site ou ressource'
     };
   }

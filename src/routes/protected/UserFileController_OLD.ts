@@ -14,8 +14,8 @@ import { ObjectStorage } from '../../utility/ObjectStorage';
 /**
  * Controller pour le téléchargement des fichiers concernant un utilisateur
  *
-@Route("/user/{userId}/file")
-@Security('jwt')
+Route("/user/{userId}/file")
+Security('jwt')
 
 export class UserFileController {
 

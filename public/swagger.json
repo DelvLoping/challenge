@@ -79,6 +79,9 @@
 						"type": "number",
 						"format": "double"
 					},
+					"useBdd": {
+						"type": "boolean"
+					},
 					"questions": {
 						"items": {
 							"$ref": "#/components/schemas/IQuestion"
@@ -141,6 +144,33 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IUser": {
+				"properties": {
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"familyName": {
+						"type": "string"
+					},
+					"givenName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"userId",
+					"email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ITestPromoUserApi": {
 				"properties": {
 					"testPromoUserId": {
@@ -187,6 +217,9 @@
 							"$ref": "#/components/schemas/IReponse"
 						},
 						"type": "array"
+					},
+					"user": {
+						"$ref": "#/components/schemas/IUser"
 					}
 				},
 				"required": [
@@ -215,6 +248,42 @@
 					"profileId",
 					"profileName",
 					"profileCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUserApi": {
+				"properties": {
+					"userId": {
+						"type": "number",
+						"format": "double"
+					},
+					"familyName": {
+						"type": "string"
+					},
+					"givenName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"profileId": {
+						"type": "number",
+						"format": "double"
+					},
+					"challenges": {
+						"items": {
+							"$ref": "#/components/schemas/ITestPromoUserApi"
+						},
+						"type": "array"
+					},
+					"profile": {
+						"$ref": "#/components/schemas/IProfile"
+					}
+				},
+				"required": [
+					"userId",
+					"email"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -587,6 +656,9 @@
 					"scoreMax": {
 						"type": "number",
 						"format": "double"
+					},
+					"useBdd": {
+						"type": "boolean"
 					}
 				},
 				"required": [
@@ -628,6 +700,9 @@
 			},
 			"Pick_ITest.Exclude_keyofITest.testId__": {
 				"properties": {
+					"useBdd": {
+						"type": "boolean"
+					},
 					"testName": {
 						"type": "string"
 					},
@@ -661,6 +736,9 @@
 					"scoreMax": {
 						"type": "number",
 						"format": "double"
+					},
+					"useBdd": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",
@@ -716,6 +794,33 @@
 					"limit",
 					"total",
 					"rows"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITestPromoApi": {
+				"properties": {
+					"testPromoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"testId": {
+						"type": "number",
+						"format": "double"
+					},
+					"promoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"test": {
+						"$ref": "#/components/schemas/ITest"
+					},
+					"promo": {
+						"$ref": "#/components/schemas/IPromo"
+					}
+				},
+				"required": [
+					"testPromoId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -897,33 +1002,6 @@
 			},
 			"ITestPromoUserUpdate": {
 				"$ref": "#/components/schemas/Partial_ITestPromoUserCreate_"
-			},
-			"IUser": {
-				"properties": {
-					"userId": {
-						"type": "number",
-						"format": "double"
-					},
-					"familyName": {
-						"type": "string"
-					},
-					"givenName": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"profileId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"userId",
-					"email"
-				],
-				"type": "object",
-				"additionalProperties": false
 			},
 			"IIndexResponse_IUser_": {
 				"properties": {
@@ -1190,6 +1268,30 @@
 						}
 					}
 				]
+			}
+		},
+		"/currentUser": {
+			"get": {
+				"operationId": "GetCurrentUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IUserApi"
+								}
+							}
+						}
+					}
+				},
+				"description": "Lancé le challenge pour l'utilisateur connecté",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
 			}
 		},
 		"/profile": {
@@ -1593,6 +1695,15 @@
 						"description": "Le nombre d'éléments à récupérer (max 50)",
 						"in": "query",
 						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "FIltre sur le test",
+						"in": "query",
+						"name": "testId",
 						"required": false,
 						"schema": {
 							"type": "string"
@@ -2182,6 +2293,52 @@
 				}
 			}
 		},
+		"/test_promo/open": {
+			"get": {
+				"operationId": "GetTestPromosOpen",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ITestPromoApi"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Récupérer une page des tests d'une promo.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "La page (zéro-index) à récupérer",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Le nombre d'éléments à récupérer (max 50)",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/test_promo/{testPromoId}": {
 			"get": {
 				"operationId": "ReadTestPromo",
@@ -2654,6 +2811,36 @@
 						}
 					}
 				]
+			}
+		},
+		"/user_sign_up": {
+			"post": {
+				"operationId": "CreateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ICreateResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Créer un nouvel utilisateur",
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUserCreate"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/user/{userId}/file": {

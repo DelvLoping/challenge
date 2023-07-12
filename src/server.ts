@@ -4,6 +4,8 @@ import { DefaultErrorHandler } from "./middleware/error-handler.middleware";
 import { RegisterRoutes } from './routes/routes';
 import { requestLogMiddleware } from "./utility/Logging/log.middleware";
 require('dotenv').config();
+import cors from 'cors';
+const path = require('path');
 
 // Récupérer le port des variables d'environnement ou préciser une valeur par défaut
 const PORT = process.env.PORT || 5050;
@@ -13,6 +15,11 @@ const app = Express();
 
 // L'appli parse le corps du message entrant comme du json
 app.use(json());
+
+// Utilisez le middleware CORS
+app.use(cors());
+
+app.use(Express.static(path.join(__dirname, 'client', 'build')));
 
 // Utiliser un middleware pour créer des logs
 app.use(requestLogMiddleware('req'));

@@ -18,6 +18,7 @@ import { IQuestionResponse } from "../types/IQuestionReponse";
 import { ITestPromoUserApi } from "../types/ITestPromoUserApi";
 import { ITestApi } from "../types/ITestApi";
 import { IBdConnectionOptions } from "../types/IBdConnectionOptions";
+import { IUser } from "../model/IUser";
 /**
  * 
  * @param req 
@@ -366,11 +367,23 @@ export const getReponsesForEachChallenges = async (req: IAuthorizedRequest, res:
     try {
         const res: IIndexResponse<ITestPromoUserApi> | null = req.resLastMiddleware;
         let where: IReadWhere | null = null;
+        let userId: number | undefined = req.userId;
+        let user: IUser | undefined = undefined;
+        if(userId){
+            user = await Crud.Read<IUser>({
+                table: 'user',
+                columns: ["*"],
+                key: "userId",
+                value: userId
+            });
+        }
+
 
         if (res?.total && res?.total > 0) {
             for (const testPromoUser of res.rows) {
                 let reponsesBd: IIndexResponse<IReponse> | null = null;
                 if (testPromoUser) {
+                    testPromoUser.user = user;
                     where = {}
                     where.testPromoUserId = testPromoUser.testPromoUserId;
                     reponsesBd = await Crud.Index({

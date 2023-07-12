@@ -6,7 +6,7 @@ import { IUpdateResponse } from '../../types/IUpdateResponse';
 import { IAuthorizedRequest } from '../../types/IAuthorizedRequest';
 import { ControllerModel } from './ControllerModel';
 
-const READ_COLUMNS = ['testId', 'testName', 'scoreMax'];
+const READ_COLUMNS = ['testId', 'testName', 'scoreMax','useBdd'];
 const ACCES = ACCESSTEST;
 /**
  * Un test de la plateforme.

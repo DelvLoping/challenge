@@ -5,11 +5,23 @@ RUN npm install
 RUN npm run clean
 RUN npm run build
 
+FROM node:18-alpine AS client-builder
+WORKDIR app/client
+COPY . .
+RUN npm install
+RUN npm run clean
+ARG BASEURL
+ENV BASEURL=$BASEURL
+ARG PUBLIC_KEY
+ENV PUBLIC_KEY=$PUBLIC_KEY
+RUN npm run build
+
 FROM node:18-alpine AS api
 WORKDIR app
 COPY --from=api-builder /app/build ./
 COPY --from=api-builder /app/secrets ./secrets
 COPY --from=api-builder /app/.ssh ./.ssh
+COPY --from=client-builder /app/client ./client
 
 COPY package* ./
 RUN npm install --omit=dev

@@ -4,7 +4,7 @@ import { ApiError } from '../../utility/Error/ApiError';
 import { ErrorCode } from '../../utility/Error/ErrorCode';
 import { IAuthorizedRequest } from '../../types/IAuthorizedRequest';
 import { ICreateResponse } from '../../types/ICreateResponse';
-import { IIndexResponse } from '../../types/IIndexQuery';
+import { IIndexResponse, IReadWhere } from '../../types/IIndexQuery';
 import { IUpdateResponse } from '../../types/IUpdateResponse';
 import { DbTable } from '../../model/DbTable';
 
@@ -22,7 +22,9 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
   public async getItems(
     req: IAuthorizedRequest,
     page?: string,
-    limit?: string
+    limit?: string,
+    key?: string,
+    value?: string
   ): Promise<IIndexResponse<T> | undefined> {
     const profileCode = req.profileCode ?? 0;
     const columns = filterColumns("READ", this.readColumns, this.access, profileCode);
@@ -30,11 +32,17 @@ export abstract class ControllerModel<T, TCreate, TUpdate> {
     if (columns.length === 0) {
       throw new ApiError(ErrorCode.Unauthorized, 'validation/notAuthorized', `Operation not authorized`);
     }
+    let where: IReadWhere | undefined = undefined;
 
+    if(key && value) {
+      where = {};
+      where[key] = value;
+    }
     const res = await Crud.Index<T>({
       query: { page, limit },
       table: this.table,
-      columns: columns
+      columns: columns,
+      where: where
     });
 
     return res;
