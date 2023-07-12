@@ -19,6 +19,10 @@ app.use(json());
 // Utilisez le middleware CORS
 app.use(cors());
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
 app.use(Express.static(path.join(__dirname, 'client', 'build')));
 
 // Utiliser un middleware pour créer des logs

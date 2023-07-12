@@ -1,19 +1,20 @@
-FROM node:18 AS client
-WORKDIR app/client
-COPY . .
-RUN npm install
-RUN npm run clean
+FROM node:18.2 AS client
+
+WORKDIR /app/client
+COPY client/package*.json ./
+RUN npm install --legacy-peer-deps
 ARG BASEURL
 ENV BASEURL=$BASEURL
 ARG PUBLIC_KEY
 ENV PUBLIC_KEY=$PUBLIC_KEY
+COPY client/ ./
 RUN npm run build
 
 FROM node:18
 # Forcer le faite d'utiliser les miroirs français quand on utilise apt ...
 # Attention, le chemin source est rélative à l'emplacement du fichier docker-compose
 COPY ./docker/sources.list /etc/apt/sources.list
-COPY --from=client /app/client ./client
+COPY --from=client /app/client/build ./client/build
 # Créer l'utilisateur et son groupe, installer des paquets
 RUN apt-get update \        
     && apt-get install -y sudo \
