@@ -7,6 +7,9 @@ services:
       dockerfile: ./docker/Dockerfile.dev
     command: /bin/bash -c "while sleep 1000; do :; done"
     working_dir: /home/dev
+    environment:
+      - BASEURL=${BASEURL}
+      - PUBLIC_KEY=${PUBLIC_KEY}
     networks:
       - api-network_challenge
     volumes:
