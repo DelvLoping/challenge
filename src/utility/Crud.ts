@@ -46,8 +46,11 @@ export class Crud<T, TCreate, TUpdate> {
       const whereList: string[] = [];
       Object.entries(options.where).forEach(
         ([key, value]) => {
-          whereList.push(key + ' = ?');
-          wherevalues.push(value);
+          if(value)
+          {
+            whereList.push(key + ' = ?');
+            wherevalues.push(value);
+          }
         }
       )
       whereClause = 'where  ' + whereList.join(' and ');
@@ -57,7 +60,11 @@ export class Crud<T, TCreate, TUpdate> {
       const joinList: string[] = [];
       Object.entries(options.join).forEach(
         ([key, value]) => {
-          joinList.push(' join '+key +' on ' + value);
+          if(value)
+          {
+            joinList.push(' join '+key +' on ' + value);
+          }
+        
         }
       )
       joinClause = joinList.join(' ');
@@ -124,8 +131,11 @@ export class Crud<T, TCreate, TUpdate> {
       const whereList: string[] = [];
       Object.entries(options.where).forEach(
         ([key, value]) => {
-          whereList.push(key + ' = ?');
-          wherevalues.push(value);
+          if(value)
+          {
+            whereList.push(key + ' = ?');
+            wherevalues.push(value);
+          }
         }
       )
       whereClause = whereList.join(' and ');
@@ -157,8 +167,11 @@ export class Crud<T, TCreate, TUpdate> {
       const whereList: string[] = [];
       Object.entries(options.where).forEach(
         ([key, value]) => {
-          whereList.push(key + ' = ?');
-          wherevalues.push(value);
+          if(value)
+          {
+            whereList.push(key + ' = ?');
+            wherevalues.push(value);
+          }
         }
       )
       whereClause = whereList.join(' and ');
