@@ -51,6 +51,7 @@ create table if not exists test_promo (
   testPromoId int auto_increment not null,
   testId int not null,
   promoId int not null,
+  open boolean default true,
   primary key(testPromoId),
   foreign key(testId) references test(testId)ON DELETE CASCADE,
   foreign key(promoId) references promo(promoId)ON DELETE CASCADE

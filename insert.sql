@@ -39,11 +39,11 @@ VALUES
     ('Service ouvert sur le port 8081', 1, 5, 1, 'ls -l', '', false),
     ('Le script doit retourner le factorielle du paramètre ?facto=', 2, 2, 1, 'ls -l', '', false);
 
-INSERT INTO test_promo (testId, promoId)
-VALUES (2, 1);
-VALUES (1, 1);
-VALUES (1, 2);
-VALUES (2, 2);
+INSERT INTO test_promo (testId, promoId,open)
+VALUES (2, 1,true);
+VALUES (1, 1,true);
+VALUES (1, 2,true);
+VALUES (2, 2,true);
 
 
 INSERT INTO test_promo_user (testPromoId, userId, urlServer, userServer, passwordServer, bdUserServer, bdPasswordServer)
