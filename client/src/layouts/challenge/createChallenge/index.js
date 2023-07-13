@@ -24,7 +24,8 @@ import { join } from 'path';
 
 function CreateChallenge(props) {
 
-    const publicKey = readFileSync(process.env.PUBLIC_KEY || join('.ssh','id_rsa.pub'), 'ascii')
+    //const publicKey = readFileSync(process.env.PUBLIC_KEY || join('.ssh','id_rsa.pub'), 'ascii') A fixé
+    const publicKey ="ssh euhfuhfhoqhhhksqmdkqlsdckwxj7678565Dsukh66675dgsb"
     
     useEffect(() => {
         console.log(props.testPromoUser)
