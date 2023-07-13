@@ -20,6 +20,7 @@ import { useVisionUIController } from "context";
 import { getJwtCookie } from "CookieService";
 import { setUser } from "context";
 import { readFileSync } from 'fs';
+import { join } from 'path';
 
 function CreateChallenge(props) {
 
