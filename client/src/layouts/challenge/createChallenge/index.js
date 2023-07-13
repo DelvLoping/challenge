@@ -23,8 +23,7 @@ import { setUser } from "context";
 
 function CreateChallenge(props) {
 
-    //const publicKey = readFileSync(process.env.PUBLIC_KEY || join('.ssh','id_rsa.pub'), 'ascii') A fixé
-    const publicKey ="ssh euhfuhfhoqhhhksqmdkqlsdckwxj7678565Dsukh66675dgsb"
+    const publicKey ="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCxDKaFOjr47maZJ7ljZJmkmX86o9cQn2i6hhGw+eWDAF1x1u559Xnh/nIposJRHxqVjWBeXFSL/LGcrEpLJqt7LG6z/JK1DVjDD5Yj10Fsq93jM0pkciYr+fnuHSN/HL2SZqe7vWzg44+HmEmEsWCtrGJzB370E4pOXQTYDc1lVAi3nNxNhTiaaKN+YgEYqJgii3ezLABeqk9zPI2D8bMa7ypDmD9k4M0xeK9ZPaKq9+3Lp2VxAKruHSYmFp0iBehCgzTTjBg7VV32ppckUqkMsokl/H3b+IwnvGMaLChGqI41TbMDZAhUObjuLprd2mM3BLKg8KbCp7xIa1Og8IMpQzbJQjwUtvyjvxjmKRPLYq+lLkuOJs/QXB5dEQ4w5ZkzPjCBhptMZQvGYEO9XFaYHf6dLNK5rVrjRekojnQPfgiKub1SwhNqU//LktVro3WiuCEdosW9bWH5qvHtElnA2MZmnvSgY8r4Ygf6H+eJzNCxKiuC2okNS6pYMJof+g0= root@e72eb7a0e7f1"
     
     useEffect(() => {
         console.log(props.testPromoUser)
