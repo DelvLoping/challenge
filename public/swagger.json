@@ -760,6 +760,9 @@
 					"promoId": {
 						"type": "number",
 						"format": "double"
+					},
+					"open": {
+						"type": "boolean"
 					}
 				},
 				"required": [
@@ -812,6 +815,9 @@
 						"type": "number",
 						"format": "double"
 					},
+					"open": {
+						"type": "boolean"
+					},
 					"test": {
 						"$ref": "#/components/schemas/ITest"
 					},
@@ -834,6 +840,9 @@
 					"testId": {
 						"type": "number",
 						"format": "double"
+					},
+					"open": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",
@@ -855,6 +864,9 @@
 					"testId": {
 						"type": "number",
 						"format": "double"
+					},
+					"open": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",

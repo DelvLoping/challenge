@@ -361,6 +361,7 @@ const models: TsoaRoute.Models = {
             "testPromoId": {"dataType":"double","required":true},
             "testId": {"dataType":"double"},
             "promoId": {"dataType":"double"},
+            "open": {"dataType":"boolean"},
         },
         "additionalProperties": false,
     },
@@ -382,6 +383,7 @@ const models: TsoaRoute.Models = {
             "testPromoId": {"dataType":"double","required":true},
             "testId": {"dataType":"double"},
             "promoId": {"dataType":"double"},
+            "open": {"dataType":"boolean"},
             "test": {"ref":"ITest"},
             "promo": {"ref":"IPromo"},
         },
@@ -390,7 +392,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_ITestPromo.Exclude_keyofITestPromo.testPromoId__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"promoId":{"dataType":"double"},"testId":{"dataType":"double"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"promoId":{"dataType":"double"},"testId":{"dataType":"double"},"open":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_ITestPromo.testPromoId_": {
@@ -405,7 +407,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_ITestPromoCreate_": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"promoId":{"dataType":"double"},"testId":{"dataType":"double"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"promoId":{"dataType":"double"},"testId":{"dataType":"double"},"open":{"dataType":"boolean"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ITestPromoUpdate": {

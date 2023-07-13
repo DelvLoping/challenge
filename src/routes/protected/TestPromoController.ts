@@ -10,7 +10,7 @@ import { ITest } from '../../model/ITest';
 import { IPromo } from '../../model/IPromo';
 import { Crud } from '../../utility/Crud';
 
-const READ_COLUMNS = ['testPromoId', 'testId', 'promoId'];
+const READ_COLUMNS = ['testPromoId', 'testId', 'promoId','open'];
 const ACCES = ACCESSTESTPROMO;
 /**
  * Un test d'une promo de la plateforme.
